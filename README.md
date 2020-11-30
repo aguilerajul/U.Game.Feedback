@@ -36,3 +36,66 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 	- Open Package Manager Console. If you don't kwnow where it's, no worries just go to the Menus bar: **Tools ➡️ Nugget Package Manager ➡️  Package Manager Console**
 	- Once it's open choose as Default Project: **Infrastructure\U.Feedback.Repository**
 	- and run the command: **update-database**
+	
+### DataBase Schema
+1. There are just two tables Created:
+	- Users:
+		Fields: 
+		
+			Id: UniqueIdentifier PK
+			
+			NickName: NVARCHAR(150)
+			
+			Name: NVARCHAR(150)
+			
+			Email: NVARCHAR(250)
+			
+			CreatedDate: DateTime
+	- UserFeedbacks:
+		Fields:
+		
+			Id: UniqueIdentifier PK
+			
+			UserId: UniqueIdentifier FK (User Table)
+			
+			SessionId: NVARCHAR(MAX)
+			
+			Rating: INT
+			
+			Comments: NVARCHAR(512)
+			
+			CreatedDate: DateTime			
+2. The relationship between Users and UserFeedbacks is One to Many
+
+### API Routes and Payloads
+1. Feedback API	
+	- Payloads: There are only 2 Actions results
+		
+		1. **POST**: Will create a new Feedback 
+			- **Session Id** is an String field 
+			- **Ubi-UserId** Sent in the header needs to be one of the User ID (Guid) added to the Users table.	
+	
+	
+					curl -X POST "http://localhost:63550/Feedback?sessionId=01d803d3-fe40-435b-90ad-42423bd0f42a" -H  "accept: */*" -H  "Ubi-UserId: 6D4B2BBE-3ABA-4852-B758-30AA5D32E3E6" -H  "Content-Type: application/json" -d "{\"rating\":0,\"comments\":\"string\"}"
+				
+				
+		2. **GET**: Will returns a list of the last 15 feedbacks sents and will be order it by created date.
+
+				curl -X GET "http://localhost:63550/Feedback/List?rating=2&totalRecords=15" -H  "accept: */*"
+
+2. User API	
+	- Payloads:
+	
+		1. **POST**: Will create a new user into the Users table.		
+	
+	
+				curl -X POST "http://localhost:63550/User" -H  "accept: */*" -H  "Content-Type: application/json" -d "{\"nickName\":\"string\",\"name\":\"string\",\"email\":\"string\"}"
+
+
+		2. **GET**: Will return the list of the users created.
+		
+		
+				curl -X GET "http://localhost:63550/User/List" -H  "accept: */*"
+		
+		
+
