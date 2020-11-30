@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -30,6 +31,9 @@ namespace U.Game.Feedback.Api
                 try
                 {
                     var context = services.GetRequiredService<RepositoryDbContext>();
+
+                    context.Database.Migrate();
+
                     context.Database.EnsureCreated();
                     Seeder.Initialize(context);
                 }
