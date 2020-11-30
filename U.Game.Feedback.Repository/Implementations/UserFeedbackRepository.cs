@@ -19,8 +19,6 @@ namespace U.Game.Feedback.Repository.Implementations
 
         public async Task<ActionResultMessage> AddAsync(UserFeedback data)
         {
-            dynamic result = new System.Dynamic.ExpandoObject();
-
             if (data?.User == null || data?.User.Id == Guid.Empty)
                 return new ActionResultMessage(System.Net.HttpStatusCode.InternalServerError, "The User Id field cannot be empty.");
 
