@@ -19,9 +19,9 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 1. Change the connection :key: value **Game.Feedback.DataBase** contain it in the projects: **U.Game.Feedback.Api ➡️ appsettings.json**
 3. Set **U.Game.Feedback.Api** as startup project: 
 	- You don't need to exectute the manually migrations or update database using the package console, it's being handle it in the **U.Game.Feedback.Api** project, 
-	- In addition the **Repository** project has a Seeder class that will create some dummy users for test purpose, by default there will be 10 users using: **Nickname_{index}**, **User{index}**, **user.{i}@testUsers.com**.
+	- In addition the **Repository** project has a Seeder class that will create some dummy users for test purpose, by default there will be 10 users using: **Nickname_{index}**, **User{index}**, **user.{index}@testUsers.com**.
 5. Run the Project **U.Game.Feedback.Api**
-6. If everything goes well, you will be able to see a Documentation Api Library call it Swagger, and you will be able to test the controllers.
+6. If everything goes well and I sure that will be :smiley: , you will be able to see a Documentation Api Library call it Swagger, and you will be able to test the controllers.
 	### 1. User: 
 		1. Create new users.
 		2. List all users and set how many records or users do you wants to see, by default the list returns the last 15 users.
@@ -39,8 +39,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 	
 ### DataBase Schema
 1. There are just two tables Created:
-	- Users:
-		Fields: 
+	- Users	Fields: 
 		
 			Id: UniqueIdentifier PK
 			
@@ -51,8 +50,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 			Email: NVARCHAR(250)
 			
 			CreatedDate: DateTime
-	- UserFeedbacks:
-		Fields:
+	- UserFeedbacks	Fields:
 		
 			Id: UniqueIdentifier PK
 			
@@ -65,7 +63,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 			Comments: NVARCHAR(512)
 			
 			CreatedDate: DateTime			
-2. The relationship between Users and UserFeedbacks is One to Many
+2. The relationship between Users and UserFeedbacks is One to Many, that means that 1 user can create multiples Feedbacks only if he is comming from a different session.
 
 ### API Routes and Payloads
 1. Feedback API	
