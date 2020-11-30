@@ -96,4 +96,15 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 				curl -X GET "http://localhost:63550/User/List" -H  "accept: */*"
 		
 		
+### Unit Tests
 
+There are 2 test projects:
+
+1. U.Game.Feedback.Api.Tests
+2. U.Game.Feedback.Repository.Tests
+
+There are different ways to run the tests:
+
+1. We can just go to the Test Explorer and Make click in the First Play button display it in the top on View, In case that you doesn't have open the test explorer you can find it in the Menu Bar: **View ➡️ Test Explorer** or press in the Keyboard **Ctrl+E,T** in Visual Studio Community.
+2. We can run it from the Menu bar **Test ➡️ Run All Tests** or press in the Keyboard **Ctrl+R,A** in Visual Studio Community.
+	
