@@ -16,7 +16,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 
 
 ### How To Test it
-1. Change the connection :key: value **Game.Feedback.DataBase** contain it in the projects: **U.Game.Feedback.Api ➡️ appsettings.json**
+1. Change the connectionstring :key: value **Game.Feedback.DataBase** contain it in the projects: **U.Game.Feedback.Api ➡️ appsettings.json**
 3. Set **U.Game.Feedback.Api** as startup project: 
 	- You don't need to exectute the manually migrations or update database using the package console, it's being handle it in the **U.Game.Feedback.Api** project, 
 	- In addition the **Repository** project has a Seeder class that will create some dummy users for test purpose, by default there will be 10 users using: **Nickname_{index}**, **User{index}**, **user.{index}@testUsers.com**.
