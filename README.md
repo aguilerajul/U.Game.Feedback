@@ -28,3 +28,11 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 	### 2. Feedback:
 		1. Send Feedback, using UserId, SessionId and rating with comments.
 		2. List last 15 feedbacks and can be filter it by Rating.
+		
+### Entity Framework Migrations
+1. If you wants to made changes to the Database the best way is use the Repository project with migrations	
+	- Made changes to the model create on **U.Game.Feedback.Domain ➡️ Entities**
+	- Update RepositoryDbContext just in case that you add a new model.
+	- Open Package Manager Console. If you don't kwnow where it's, no worries just go to the Menus bar: **Tools ➡️ Nugget Package Manager ➡️  Package Manager Console**
+	- Once it's open choose as Default Project: **Infrastructure\U.Feedback.Repository**
+	- and run the command: **update-database**

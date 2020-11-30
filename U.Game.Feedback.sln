@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U.Game.Feedback.Api.Tests",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U.Game.Feedback.Api", "U.Game.Feedback.Api\U.Game.Feedback.Api.csproj", "{9F9551A8-DF41-475F-8C57-F3E791D33501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "U.Game.Feedback.Repository.Tests", "U.Game.Feedback.Repository.Tests\U.Game.Feedback.Repository.Tests.csproj", "{7978D297-F904-4CC5-BD07-340DC97DAE7D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "U.Game.Feedback.Repository.Tests", "U.Game.Feedback.Repository.Tests\U.Game.Feedback.Repository.Tests.csproj", "{7978D297-F904-4CC5-BD07-340DC97DAE7D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
