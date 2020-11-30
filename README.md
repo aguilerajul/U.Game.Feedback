@@ -39,8 +39,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 	
 ### DataBase Schema
 1. There are just two tables Created:
-	- Users:
-		Fields: 
+	- Users	Fields: 
 		
 			Id: UniqueIdentifier PK
 			
@@ -51,8 +50,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 			Email: NVARCHAR(250)
 			
 			CreatedDate: DateTime
-	- UserFeedbacks:
-		Fields:
+	- UserFeedbacks	Fields:
 		
 			Id: UniqueIdentifier PK
 			
@@ -65,7 +63,7 @@ The soluction was implemented using the DDD Patterns with Entity Framework and w
 			Comments: NVARCHAR(512)
 			
 			CreatedDate: DateTime			
-2. The relationship between Users and UserFeedbacks is One to Many
+2. The relationship between Users and UserFeedbacks is One to Many, that means that 1 user can create multiples Feedbacks only if he is comming from a different session.
 
 ### API Routes and Payloads
 1. Feedback API	
