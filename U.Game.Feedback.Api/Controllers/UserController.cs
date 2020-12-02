@@ -25,11 +25,11 @@ namespace U.Game.Feedback.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] UserModel model)
         {            
-            var userId = await this.userRepository.AddAsync(
+            var actionResultMessage = await this.userRepository.AddAsync(
                 new User(Guid.Empty, model.NickName, model.Name, model.Email)
             );
 
-            return Ok(userId);
+            return Ok(actionResultMessage);
         }
 
         [HttpGet]
