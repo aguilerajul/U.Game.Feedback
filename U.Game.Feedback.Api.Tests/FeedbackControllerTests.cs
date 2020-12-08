@@ -33,9 +33,11 @@ namespace U.Game.Feedback.Api.Tests
         [InlineData(3, 5)]
         [InlineData(4, null)]
         [InlineData(5, 15)]
-        public async Task Get_Filtered_List_Async_Success(int rating, int? totalRecords)
+        [InlineData(null, 15)]
+        public async Task Get_Filtered_List_Async_Success(int? rating, int? totalRecords)
         {
-            var userFeedbacks = this.feedbackDataMocks.UserFeedbacksMock().Where(ufb => ufb.Rating == rating).Take(totalRecords != null ? totalRecords.Value : 15);
+            var userFeedbacks = this.feedbackDataMocks.UserFeedbacksMock().Where(ufb => (rating != null ? ufb.Rating == rating.Value : ufb.Rating >= 1))
+                .Take(totalRecords != null ? totalRecords.Value : 15);
 
             //Arrange
             this.userFeedbackRepositoryMock.Setup(ufr => ufr.GetFilteredListAsync(It.IsAny<Func<UserFeedback, bool>>(), totalRecords))

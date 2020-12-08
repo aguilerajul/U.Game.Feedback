@@ -49,9 +49,9 @@ namespace U.Game.Feedback.Api.Controllers
 
         [HttpGet]
         [Route("List")]
-        public async Task<IActionResult> List([FromQuery] int rating, [FromQuery] int? totalRecords = 15)
+        public async Task<IActionResult> List([FromQuery] int? rating, [FromQuery] int? totalRecords = 15)
         {
-            var feedbacks = await this.userFeedbackRepository.GetFilteredListAsync(uf => uf.Rating == rating, totalRecords);
+            var feedbacks = await this.userFeedbackRepository.GetFilteredListAsync(uf => (rating != null ? uf.Rating == rating.Value: uf.Rating >= 1), totalRecords);
             var mappingResult = this.mapper.Map<IEnumerable<FeedbackModel>>(feedbacks);
             return Ok(mappingResult);
         }
