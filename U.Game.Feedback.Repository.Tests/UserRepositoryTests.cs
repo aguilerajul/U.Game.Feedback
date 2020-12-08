@@ -17,13 +17,10 @@ namespace U.Game.Feedback.Repository.Tests
         private readonly IRepositoryBase<User> userRepository;
         private readonly RepositoryDbContextMock repositoryDbContextMock;
 
-        private DateTime createdDate;
-
         public UserRepositoryTests()
         {
             this.repositoryDbContextMock = new RepositoryDbContextMock();
             this.userRepository = new UserRepository(this.repositoryDbContextMock.dbContextMock);
-            this.createdDate = DateTime.UtcNow.AddDays(-1);
         }
 
         [Fact]
@@ -44,7 +41,7 @@ namespace U.Game.Feedback.Repository.Tests
         [InlineData(3)]
         public async Task Get_User_List_Success(int? totalRecords = 15)
         {
-            var users = this.repositoryDbContextMock.userFeedbacksMock
+            var users = this.repositoryDbContextMock.usersMock
                 .OrderByDescending(uf => uf.CreatedDate)
                 .Take(totalRecords.Value);
 
@@ -54,20 +51,21 @@ namespace U.Game.Feedback.Repository.Tests
             //Asserts
             userFromRepository.Should().NotBeNull();
             userFromRepository.Count().Should().BeGreaterOrEqualTo(0);
+            userFromRepository.Count().Should().Be(users.Count());
         }
 
         [Fact]
         public async Task Get_User_Filtered_By_CreatedDate_Success()
         {
-            var users = this.repositoryDbContextMock.userFeedbacksMock
-                .Where(uf => uf.CreatedDate >= this.createdDate)
-                .OrderByDescending(uf => uf.CreatedDate);
+            var userFiltered = this.repositoryDbContextMock.usersMock
+                .FirstOrDefault();
 
             //Act
-            var userFromRepository = await this.userRepository.GetFilteredAsync(f => f.CreatedDate >= createdDate);
+            var userFromRepository = await this.userRepository.GetFilteredAsync(f => f.Id.Equals(userFiltered.Id));
 
             //Asserts
             userFromRepository.Should().NotBeNull();
+            userFromRepository.Id.Should().Be(userFiltered.Id);
         }
 
         [Theory]
@@ -96,12 +94,13 @@ namespace U.Game.Feedback.Repository.Tests
         [InlineData("coolNickName", "Tester", "user2312330asd@userunittest.com")]
         public async Task Create_User_Success(string nickName, string name, string email)
         {
-            var userMock = this.repositoryDbContextMock.usersMock.FirstOrDefault();
+            var userId = Guid.NewGuid();
+            var userMock = new User(userId, nickName, name, email);
 
             //Act
             var actionResultMessage = await this.userRepository.AddAsync(
                     new User(
-                        Guid.NewGuid(),
+                        userId,
                         nickName,
                         name,
                         email)
@@ -110,6 +109,7 @@ namespace U.Game.Feedback.Repository.Tests
             //Asserts
             actionResultMessage.Should().NotBeNull();
             actionResultMessage.StatusCode.Should().Be(HttpStatusCode.OK);
+            actionResultMessage.Message.Should().Contain(userMock.Id.ToString());
         }
     }
 }

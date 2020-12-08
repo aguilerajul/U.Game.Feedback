@@ -54,6 +54,7 @@ namespace U.Game.Feedback.Repository.Tests
             //Asserts
             userFeedbacksFromRepository.Should().NotBeNull();
             userFeedbacksFromRepository.Count().Should().BeGreaterOrEqualTo(0);
+            userFeedbacksFromRepository.Count().Should().Be(userFeedbacks.Count());
         }
 
         [Theory]
@@ -73,20 +74,22 @@ namespace U.Game.Feedback.Repository.Tests
             userFeedbacksFromRepository.Should().NotBeNull();
             userFeedbacksFromRepository.Count().Should().BeGreaterOrEqualTo(0);
             userFeedbacksFromRepository.ToList()?.FirstOrDefault()?.Rating.Should().Be(rating);
+            userFeedbacksFromRepository.Count().Should().Be(userFeedbacks.Count());
         }
 
         [Fact]
         public async Task Get_User_Feedback_Filtered_By_CreatedDate_Success()
         {
-            var userFeedbacks = this.repositoryDbContextMock.userFeedbacksMock
-                .Where(uf => uf.CreatedDate >= this.createdDate)
-                .OrderByDescending(uf => uf.CreatedDate);
+            var userFeedback = this.repositoryDbContextMock.userFeedbacksMock
+                .OrderByDescending(uf => uf.CreatedDate)
+                .FirstOrDefault();
 
             //Act
-            var userFeedbacksFromRepository = await this.userFeedbackRepository.GetFilteredAsync(f => f.CreatedDate >= createdDate);
+            var userFeedbacksFromRepository = await this.userFeedbackRepository.GetFilteredAsync(f => f.Id.Equals(userFeedback.Id));
 
             //Asserts
             userFeedbacksFromRepository.Should().NotBeNull();
+            userFeedbacksFromRepository.Id.Should().Be(userFeedback.Id);
         }
 
 
@@ -108,13 +111,13 @@ namespace U.Game.Feedback.Repository.Tests
         [Fact]
         public async Task Create_User_Feedback_No_User_Id_Sent_Throw_Error()
         {
-            var userMock = this.repositoryDbContextMock.usersMock.FirstOrDefault();
+            var userMock = new User(Guid.Empty, string.Empty, string.Empty, string.Empty);
 
             //Act
             var actionResultMessage = await this.userFeedbackRepository.AddAsync(
                 new UserFeedback(
                     Guid.Empty,
-                    new User(Guid.Empty, string.Empty, string.Empty, string.Empty),
+                    userMock,
                     string.Empty,
                     1,
                     string.Empty)

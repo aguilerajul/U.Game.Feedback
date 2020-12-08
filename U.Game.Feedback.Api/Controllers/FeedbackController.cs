@@ -40,11 +40,11 @@ namespace U.Game.Feedback.Api.Controllers
             if (user == null)
                 return NotFound($"A user with the ID: {userId} doesn't exists in our database.");
 
-            var feedbackId = await this.userFeedbackRepository.AddAsync(
+            var actionResultMessage = await this.userFeedbackRepository.AddAsync(
                 new UserFeedback(Guid.Empty, user, sessionId, model.Rating, model.Comments)
             );
 
-            return Ok(feedbackId);
+            return Ok(actionResultMessage);
         }
 
         [HttpGet]
