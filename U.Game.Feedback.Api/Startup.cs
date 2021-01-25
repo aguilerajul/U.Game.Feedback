@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
+using U.Game.Feedback.Api.Extensions;
 using U.Game.Feedback.Api.Validators;
 using U.Game.Feedback.Domain.Contracts;
 using U.Game.Feedback.Domain.Entities;
@@ -81,6 +82,8 @@ namespace U.Game.Feedback.Api
             {
                 swg.SwaggerEndpoint("/swagger/v1/swagger.json", "Feedback API");
             });
+
+            app.ConfigureExceptionHandler();
 
             app.UseEndpoints(endpoints =>
             {
